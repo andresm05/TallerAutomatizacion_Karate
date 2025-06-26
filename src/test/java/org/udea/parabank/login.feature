@@ -16,6 +16,7 @@ Feature: Login to Contact Application
     """
     When method POST
     Then status 200
+    * def token = response.token
     And match response ==
     """
     {
