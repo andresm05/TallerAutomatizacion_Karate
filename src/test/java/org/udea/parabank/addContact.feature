@@ -30,7 +30,7 @@ Scenario: Add contact
   And match response ==
     """
     {
-      "_id": '#number',
+      "_id": '#string',
       "firstName": '#string',
       "lastName": '#string',
       "birthdate": '#string',
