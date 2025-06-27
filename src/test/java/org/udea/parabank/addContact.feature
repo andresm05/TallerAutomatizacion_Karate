@@ -5,27 +5,28 @@ Background:
   * header Accept = 'application/json'
   * def loginResult = call read('login.feature')
   * def token = loginResult.token
+  * def email = 'user' + java.lang.System.currentTimeMillis() + '@mail.com'
+  * def phone = Math.floor(Math.random() * 10000000000).toString()
   * header Authorization = 'Bearer ' + token
 
 Scenario: Add contact
     Given path '/contacts'
-    * def contact =
+    And request
     """
     {
     "firstName": "David",
-    "lastName": "MonteNegro",
-    "birthdate": "1990-05-15",
-    "email": "ana" + java.lang.System.currentTimeMillis() + "@correo.com",
-    "phone": "3" + Math.floor(Math.random() * 1000000000),
-    "street1": "Av. Siempre Viva 123",
-    "street2": "Depto 1",
-    "city": "Bogotá",
-    "stateProvince": "Cundinamarca",
-    "postalCode": "110111",
+    "lastName": "Montenegro",
+    "birthdate": "1970-01-01",
+    "email": "#(email)",
+    "phone": "#(phone)",
+    "street1": "123 Main St",
+    "street2": "Apt 4B",
+    "city": "Springfield",
+    "stateProvince": "IL",
+    "postalCode": "62701",
     "country": "Colombia"
     }
     """
-    And request contact
     When method POST
     Then status 201
     And match response ==
