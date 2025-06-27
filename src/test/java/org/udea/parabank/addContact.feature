@@ -8,41 +8,42 @@ Background:
   * header Authorization = 'Bearer ' + token
 
 Scenario: Add contact
-  Given path '/contacts'
-  And request
+    Given path '/contacts'
+    * def contact =
     """
     {
-      "firstName": "Cristhian",
-      "lastName": "Paez",
-      "birthdate": "1970-01-01",
-      "email": "cristhianPaez@gmail.com",
-      "phone": "1234567890",
-      "street1": "123 Main St",
-      "street2": "Apt 4B",
-      "city": "Springfield",
-      "stateProvince": "IL",
-      "postalCode": "62701",
-      "country": "Colombia"
+    "firstName": "David",
+    "lastName": "MonteNegro",
+    "birthdate": "1990-05-15",
+    "email": "ana" + java.lang.System.currentTimeMillis() + "@correo.com",
+    "phone": "3" + Math.floor(Math.random() * 1000000000),
+    "street1": "Av. Siempre Viva 123",
+    "street2": "Depto 1",
+    "city": "Bogotá",
+    "stateProvince": "Cundinamarca",
+    "postalCode": "110111",
+    "country": "Colombia"
     }
     """
-  When method POST
-  Then status 201
-  And match response ==
-    """
-    {
-      "_id": '#string',
-      "firstName": '#string',
-      "lastName": '#string',
-      "birthdate": '#string',
-      "email": '#string',
-      "phone": '#string',
-      "street1": '#string',
-      "street2": '#string',
-      "city": '#string',
-      "stateProvince": '#string',
-      "postalCode": '#string',
-      "country": '#string',
-      "owner": '#string',
-      "__v": '#number'
-    }
-    """
+    And request contact
+    When method POST
+    Then status 201
+    And match response ==
+        """
+        {
+        "_id": '#string',
+        "firstName": '#string',
+        "lastName": '#string',
+        "birthdate": '#string',
+        "email": '#string',
+        "phone": '#string',
+        "street1": '#string',
+        "street2": '#string',
+        "city": '#string',
+        "stateProvince": '#string',
+        "postalCode": '#string',
+        "country": '#string',
+        "owner": '#string',
+        "__v": '#number'
+        }
+        """
